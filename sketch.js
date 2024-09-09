@@ -8,6 +8,7 @@ let onInstru = false;
 
 let BotonX = 310, BotonY = 215, BotonW = 180, BotonH = 40;
 let BottX = 310, BottY = 250, BottW = 180, BottH = 40;
+let IntrX=310, IntrY = 277, IntrW = 180, IntrH = 40; 
 
 let InicioTiempo = false;
 let MedidaTiempo = false;
@@ -84,10 +85,10 @@ function drawPantallaDeInicio() {
   text("Iniciar la Prueba", BotonX + BotonW / 2, BotonY + BotonH / 2);
   
   fill(237, 116, 4); // usa RGB
-  rect(BotonX, 277, BotonW, 40, 30);
+  rect(IntrX, IntrY, IntrW, IntrH, 30);
   fill(255);
   textSize(16);
-  text("Instrucciones", 310, 288);
+  text("Instrucciones", IntrX + IntrW /2, IntrY + IntrH /2);
 }
 
 function drawInstru() {
@@ -188,6 +189,7 @@ function mousePressed() {
   } else if (onInstru) {
     if (mouseX > BotonX && mouseX < BotonX + BotonW && mouseY > 300 && mouseY < 340) {
       onInstru = false;
+      onTerceraPantalla = false;
       onPantallaDeInicio = true;
     }
   } else if (onSegundaPantalla) {

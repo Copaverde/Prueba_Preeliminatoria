@@ -88,7 +88,7 @@ function drawPantallaDeInicio() {
   rect(IntrX, IntrY, IntrW, IntrH, 30);
   fill(255);
   textSize(16);
-  text("Instrucciones", IntrX + 310, IntrY + 288);
+  text("Instrucciones", IntrX + IntrW/2, IntrY + IntrH /2);
 }
 
 function drawInstru() {

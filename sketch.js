@@ -47,9 +47,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1500, 600);
+  createCanvas(800, 500);
   centerX = width/2 ;
-  centerY = height;
+  centerY = height/ 2;
   initializeCubes();
   startTime = millis();
   timeStarted = true;

@@ -44,8 +44,8 @@ let startTime;
 let elapsedTime = 0;
 let scores = [];
 let redCubeShown = false;
-let displayTime = 8000;
-let popupDisplayTime = 300;
+let displayTime = 5000;
+let popupDisplayTime = 200;
 let popupStartTime;
 
 // Variables globales adicionales
@@ -208,7 +208,7 @@ function drawTerceraPantalla() {
         rect(cubeX[i], cubeY[i], cubeSize, cubeSize);
     }
 
-      // --- tiempo ---
+    // --- tiempo ---
     if (timeStarted && !timeStopped) {
         elapsedTime = millis() - startTime;
         let remainingTime = max(0, (int)(displayTime - elapsedTime));
@@ -250,17 +250,31 @@ function mousePressed() {
     if (onPantallaDeInicio) {
         if (mouseX > BotonX && mouseX < BotonX + BotonW && mouseY > BotonY && mouseY < BotonY + BotonH) {
             onPantallaDeInicio = false;
+            onTerceraPantalla = false;
             onSegundaPantalla = true;
+            //------------
+            onPopup1 = false;
+            onPopupScreen = false;
+            onScoreScreen = false;
+            onInstru = false;
             LaLuz = 0;
             InicioLuz = millis();
         }
-        if (mouseX > 315 && mouseX < 491 && mouseY > 280 && mouseY < 340) {
+        if (mouseX > 315 && mouseX < 491 && mouseY > 265 && mouseY < 310) {
             onPantallaDeInicio = false;
+            onTerceraPantalla = false;
+            onScoreScreen = false;
             onInstru = true;
+            //--------------
+            onPopup1 = false;
+            onPopupScreen = false;
         }
     } else if (onInstru) {
         if (mouseX > 330 && mouseX < 470 && mouseY > 420 && mouseY < 470) {
+            onPantallaDeInicio = false;
             onInstru = false;
+            onPopup1 = false;
+            onPopupScreen = false;
             onTerceraPantalla = false;
             onPantallaDeInicio = true;
         }
@@ -270,19 +284,26 @@ function mousePressed() {
                 TiempoDeReaccion = millis() - TiempoDeReaccionON;
                 MedidaTiempo = true;
                 ApagarLuz = false;
+
             } else {
                 if (!InicioTiempo) {
                     InicioLuz = millis();
                     InicioTiempo = true;
                     MedidaTiempo = false;
                     ApagarLuz = false;
+                    onPopup1 = true;
                 }
             }
-        } else if (mouseX > PopX && mouseX < PopX + PopW && mouseY > PopY && mouseY < PopY + BotonH) {
+        }  if(onPopup1){if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
             // Cambiar a la tercera pantalla
             onSegundaPantalla = false;
             onPopup1 = false;
             onTerceraPantalla = true;
+            //--------------------
+            onPantallaDeInicio = false;
+            onPopupScreen = false;
+            onScoreScreen = false;
+            onInstru = false;}
         }
     } if (onTerceraPantalla) {
         if (redCubeShown && redCubeIndex != -1 && mouseX > cubeX[redCubeIndex] && mouseX < cubeX[redCubeIndex] + cubeSize && mouseY > cubeY[redCubeIndex] && mouseY < cubeY[redCubeIndex] + cubeSize) {
@@ -297,6 +318,7 @@ function mousePressed() {
         if (mouseX > 300 && mouseX < 510 && mouseY > 290 && mouseY < 360) {
 
             onTerceraPantalla = false;
+            onScoreScreen = false;
             onPopupScreen = true;
         }
     }
@@ -318,7 +340,7 @@ function initializeCubes() {
         cubeY[i] = centerY + sin(angle) * radius - cubeSize / 100;
         isRed[i] = false;
     }
-    
+
 }
 
 function showRedCube() {

@@ -101,7 +101,8 @@ function drawPantallaDeInicio() {
     image(fondo1, 0, 0, width, height);
     textAlign(CENTER, CENTER);
     textSize(25);
-    text("Bienvenida/o a la prueba preliminar para novatos", width / 2, 155);
+    text("Bienvenida/o", width / 2, 100);
+    text("a la prueba preliminar de Copa Verde", width / 2, 153);
 
     // --- Botón de Iniciar la Práctica ---
     fill(237, 116, 4); // usa RGB
@@ -123,9 +124,7 @@ function drawInstru() {
     background(255);
     image(Instruccion, 0, 0, width, height);
 
-    // --- BOTON ---
-    fill(255, 0, 0, 150);
-    rect(BotonX, 300, BotonW, 40, 30);
+
 }
 
 function drawSegundaPantalla() {
@@ -294,16 +293,18 @@ function mousePressed() {
                     onPopup1 = true;
                 }
             }
-        }  if(onPopup1){if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
-            // Cambiar a la tercera pantalla
-            onSegundaPantalla = false;
-            onPopup1 = false;
-            onTerceraPantalla = true;
-            //--------------------
-            onPantallaDeInicio = false;
-            onPopupScreen = false;
-            onScoreScreen = false;
-            onInstru = false;}
+        } if (onPopup1) {
+            if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
+                // Cambiar a la tercera pantalla
+                onSegundaPantalla = false;
+                onPopup1 = false;
+                onTerceraPantalla = true;
+                //--------------------
+                onPantallaDeInicio = false;
+                onPopupScreen = false;
+                onScoreScreen = false;
+                onInstru = false;
+            }
         }
     } if (onTerceraPantalla) {
         if (redCubeShown && redCubeIndex != -1 && mouseX > cubeX[redCubeIndex] && mouseX < cubeX[redCubeIndex] + cubeSize && mouseY > cubeY[redCubeIndex] && mouseY < cubeY[redCubeIndex] + cubeSize) {

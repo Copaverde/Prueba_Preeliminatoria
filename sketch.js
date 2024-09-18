@@ -124,7 +124,7 @@ function drawInstru() {
     background(255);
     image(Instruccion, 0, 0, width, height);
 
-
+    
 }
 
 function drawSegundaPantalla() {
@@ -159,16 +159,18 @@ function drawSemaforo() {
     let LuzY = 150;
     let EspaciadoL = 10;
 
-    fill(0);
-    rect(LuzX - 30, LuzY - 10, LuzW * ConteoLuz + EspaciadoL * (ConteoLuz - 1) + 20, LuzH + 20);
+    fill(30,30,30);
+   rect(LuzX - 30, LuzY - 5, LuzW * ConteoLuz + EspaciadoL * (ConteoLuz - 1) + 20, LuzH + 20);
+  //rect(LuzX - 30, LuzY - 75, LuzW * ConteoLuz + EspaciadoL * (ConteoLuz - 1) + 20, LuzH + 20);
 
     for (let i = 0; i < ConteoLuz; i++) {
         if (i < ConteoLuz - LaLuz) {
-            fill(255, 0, 0);
+            fill(21, 71, 18);
         } else {
             fill(50);
         }
         ellipse(LuzX + i * (LuzW + EspaciadoL), LuzY + LuzH / 2, LuzW, LuzH);
+        ellipse(LuzX + i * (LuzW + EspaciadoL), 95 + LuzH / 2, LuzW, LuzH);
     }
 }
 
@@ -293,18 +295,16 @@ function mousePressed() {
                     onPopup1 = true;
                 }
             }
-        } if (onPopup1) {
-            if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
-                // Cambiar a la tercera pantalla
-                onSegundaPantalla = false;
-                onPopup1 = false;
-                onTerceraPantalla = true;
-                //--------------------
-                onPantallaDeInicio = false;
-                onPopupScreen = false;
-                onScoreScreen = false;
-                onInstru = false;
-            }
+        }  if(onPopup1){if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
+            // Cambiar a la tercera pantalla
+            onSegundaPantalla = false;
+            onPopup1 = false;
+            onTerceraPantalla = true;
+            //--------------------
+            onPantallaDeInicio = false;
+            onPopupScreen = false;
+            onScoreScreen = false;
+            onInstru = false;}
         }
     } if (onTerceraPantalla) {
         if (redCubeShown && redCubeIndex != -1 && mouseX > cubeX[redCubeIndex] && mouseX < cubeX[redCubeIndex] + cubeSize && mouseY > cubeY[redCubeIndex] && mouseY < cubeY[redCubeIndex] + cubeSize) {

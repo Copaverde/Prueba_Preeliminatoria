@@ -124,7 +124,7 @@ function drawInstru() {
     background(255);
     image(Instruccion, 0, 0, width, height);
 
-    
+
 }
 
 function drawSegundaPantalla() {
@@ -155,19 +155,16 @@ function drawSegundaPantalla() {
 function drawSemaforo() {
     let LuzW = 50;
     let LuzH = 50;
-    let LuzX = width / 2 - LuzW * ConteoLuz / 2 - 10 * (ConteoLuz - 1) / 2;
-    let LuzY = 150;
-    let EspaciadoL = 10;
+    let LuzX = width / 2.01 - LuzW * ConteoLuz / 2 - 10 * (ConteoLuz - 1) / 2;
+    let LuzY = 153;
+    let EspaciadoL = 24;
 
-    fill(30,30,30);
-   rect(LuzX - 30, LuzY - 5, LuzW * ConteoLuz + EspaciadoL * (ConteoLuz - 1) + 20, LuzH + 20);
-  //rect(LuzX - 30, LuzY - 75, LuzW * ConteoLuz + EspaciadoL * (ConteoLuz - 1) + 20, LuzH + 20);
 
     for (let i = 0; i < ConteoLuz; i++) {
         if (i < ConteoLuz - LaLuz) {
-            fill(21, 71, 18);
+            fill(48, 156, 99);
         } else {
-            fill(50);
+            fill(62, 75, 77);
         }
         ellipse(LuzX + i * (LuzW + EspaciadoL), LuzY + LuzH / 2, LuzW, LuzH);
         ellipse(LuzX + i * (LuzW + EspaciadoL), 95 + LuzH / 2, LuzW, LuzH);
@@ -184,7 +181,7 @@ function drawPopup1() {
         fill(255);
         textAlign(CENTER, CENTER);
         textSize(24);
-        text("Tiempo de reaccion: " + nf(TiempoDeReaccion / 1000.0, 0, 2) + " s", width / 2, 250);
+        text("Tiempo de reaccion: " + nf(TiempoDeReaccion / 1000.0, 0, 2) + " segundos", width / 2, 250);
 
         // Dibuja el botón siguiente
         fill(237, 116, 4);
@@ -210,12 +207,15 @@ function drawTerceraPantalla() {
     }
 
     // --- tiempo ---
-    if (timeStarted && !timeStopped) {
-        elapsedTime = millis() - startTime;
-        let remainingTime = max(0, (int)(displayTime - elapsedTime));
-        if (elapsedTime >= 10000 && !redCubeShown) {
-            showRedCube();
-            redCubeShown = true;
+
+    if (onTerceraPantalla) {
+        if (timeStarted && !timeStopped) {
+            elapsedTime = millis() - startTime;
+            let remainingTime = max(0, (int)(displayTime - elapsedTime));
+            if (elapsedTime >= 20000 && !redCubeShown) {
+                showRedCube();
+                redCubeShown = true;
+            }
         }
     }
 }
@@ -229,8 +229,9 @@ function drawPopupScreen() {
         fill(0);
         textAlign(CENTER, CENTER);
         textSize(22);
-        text("¡La prueba ha finalizado, gracias por participar!", width / 2, 150);
-        text("¡Tiempo: " + (elapsedTime / 1000.0) + " segundos!", width / 2, 250);
+        // text("¡La prueba ha finalizado, gracias por participar!", width / 2, 150);
+        // text("¡Tiempo: " + nf(elapsedTime / 1000.0, 0, 2) + " segundos!", width / 2, 250);
+        text("¡Tiempo: 1:59 segundos!", width / 2, 250);
 
         // Dibuja el botón "Ir a tabla de puestos"
         fill(237, 116, 4);
@@ -295,16 +296,18 @@ function mousePressed() {
                     onPopup1 = true;
                 }
             }
-        }  if(onPopup1){if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
-            // Cambiar a la tercera pantalla
-            onSegundaPantalla = false;
-            onPopup1 = false;
-            onTerceraPantalla = true;
-            //--------------------
-            onPantallaDeInicio = false;
-            onPopupScreen = false;
-            onScoreScreen = false;
-            onInstru = false;}
+        } if (onPopup1) {
+            if (mouseX > 290 && mouseX < 490 + PopW && mouseY > 320 && mouseY < 370 + BotonH) {
+                // Cambiar a la tercera pantalla
+                onSegundaPantalla = false;
+                onPopup1 = false;
+                onTerceraPantalla = true;
+                //--------------------
+                onPantallaDeInicio = false;
+                onPopupScreen = false;
+                onScoreScreen = false;
+                onInstru = false;
+            }
         }
     } if (onTerceraPantalla) {
         if (redCubeShown && redCubeIndex != -1 && mouseX > cubeX[redCubeIndex] && mouseX < cubeX[redCubeIndex] + cubeSize && mouseY > cubeY[redCubeIndex] && mouseY < cubeY[redCubeIndex] + cubeSize) {
@@ -313,6 +316,7 @@ function mousePressed() {
             popupStartTime = millis();
             onTerceraPantalla = false;
             onPopupScreen = true;
+            onScoreScreen = false;
             scores.push(elapsedTime);
         }
     } if (onPopupScreen) {
@@ -321,6 +325,7 @@ function mousePressed() {
             onTerceraPantalla = false;
             onScoreScreen = false;
             onPopupScreen = true;
+
         }
     }
     if (onPopupScreen) {

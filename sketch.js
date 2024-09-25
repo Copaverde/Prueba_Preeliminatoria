@@ -208,11 +208,11 @@ function drawTerceraPantalla() {
 
     // --- tiempo ---
 
-    if (onTerceraPantalla) {
+      if (onTerceraPantalla) {
         if (timeStarted && !timeStopped) {
             elapsedTime = millis() - startTime;
             let remainingTime = max(0, (int)(displayTime - elapsedTime));
-            if (elapsedTime >= 20000 && !redCubeShown) {
+            if (elapsedTime >= 10000 && !redCubeShown) {
                 showRedCube();
                 redCubeShown = true;
             }
